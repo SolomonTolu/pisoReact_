@@ -1,13 +1,313 @@
-body {
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
+
 }
 
-code {
+
+body {
+  margin: 0;
+  font-family:"Inter", sans-serif;
+}
+
+.planSection{
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: whitesmoke;
+  overflow: hidden;  
+
+}
+
+canvas{
+  border: 3px solid chocolate;
+  margin: 0px 1px;
+}
+
+/* .canvasContainer{
+  display: flex;
+    justify-content: center;
+
+} */
+
+/* ToolBar */
+.toolbar{
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 48px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #2c2c2c;
+  top: 0;
+  left: 0;
+  color: white;
+  z-index: 10;
+  border-bottom: 1px solid rgba(245, 245, 245, 0.575);
+}
+
+.toolbar span{
+  font-size: 14px;
+}
+
+/* RightPanel */
+.rightPanel{
+  position: absolute;
+  width: 240px;
+  height: 100vh;
+  padding: 1px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: #2c2c2c;
+  top: 0;
+  right: 0;
+  color: white;
+  z-index: 10;
+  overflow: hidden;
+}
+
+
+
+/* leftPanel */
+.leftPanel{
+  position: absolute;
+  width: 240px;
+  height: 100vh;
+  /* padding: 10px; */
+  background-color: #2c2c2c;
+  top: 0;
+  left: 0;
+  color: white;
+  z-index: 9;
+}
+
+.leftPanel .leftPanelContainer {
+   padding: 20px;
+   width: 100%;
+   min-height: fit-content;
+   max-height: 90%;
+   background-color:transparent;
+   border-bottom: 0.5px solid whitesmoke;
+   margin-top: 45px;
+  
+  
+}
+
+.leftPanel .header {
+   width: 100%;
+   display: flex;
+   justify-content: space-between;
+   height: 30px;
+   /* background-color: antiquewhite; */
+}
+.leftPanel .pages {
+   width: 100%;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   /* height: 30px; */
+   gap: 2px;
+   margin-top: 10px;
+   color: white;
+}
+
+
+.leftPanel .pages  button{
+  width: 100%;
+  height: 30px;
+  padding: 5px;
+  text-align: left;
+  cursor: pointer;
+  background-color: #2c2c2c;
+  border: none;
+  color: white;
+
+}
+.leftPanel .pages  button:hover{
+ 
+  background-color: #1c1c1c;
+
+}
+/* code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+} */
+
+
+
+/* Hidden elements */
+.hidden {
+  display: none;
+}
+
+
+/* Canvas container */
+.canvasContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: calc(100vh - 48px); /* Subtract the widths of the panels */
+  width: calc(100vw - 480px); /* Subtract the widths of the panels */
+  /* overflow: hidden; */
+  top: 48px; /* Push it down by the height of the toolbar */
+  left: 240px; /* Push it right by the width of the left panel */
+}
+
+
+/* RightPanel */
+.pinDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 45px;
+  flex-grow: 1; /* This will make pinDetails take all available space */
+  /* overflow-y: auto; Add a scrollbar if the content overflows */
+  width: 100%;
+}
+
+.pinDetailsContainer{
+  padding: 10px;
+  width: 100%;
+}
+
+.editPinContainer{
+  border-bottom: 1px solid whitesmoke;
+  margin: 20px 0px;
+  text-align: center;
+}
+
+.rightPanel button {
+  padding: 11px;
+  background: whitesmoke;
+  width: 150px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin: 10px 0px;
+}
+.pinImage {
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+  /* margin-top: 10px; */
+  max-height: 160px;
+}
+
+.pinTitle {
+  margin-top: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  word-break: break-all;
+}
+
+.pinDescription {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.pinMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.pinMeta span, .pinMetaData span {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.pinComments {
+  width: 100%;
+  margin-top: 10px;
+  text-align: center;
+  flex-grow: 1; /* This will make pinComments take all available space within pinDetails */
+ overflow-y: auto;  /* Add a scrollbar if the content overflows */
+  padding: 10px; /* Optional, add padding as needed */
+  overflow-x: hidden;
+}
+
+.comment {
+
+  display: flex;
+  padding: 15px 0;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 2px;
+  /* padding-right: 8px; Reserve space for scrollbar */
+  margin-right: -8px; /* Counteract the padding */
+
+
+}
+
+.commentUser {
+  font-weight: bold;
+  font-size: 15px;
+  margin-right: 10px;
+}
+
+.commentText {
+  font-size: 15px;
+  word-break: break-word;
+}
+
+.smallSpan{
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.add-comment-button {
+  padding-right: 8px;   /* Reserve space for scrollbar */
+  margin-right: -8px;   /* Counteract the padding */
+}
+
+
+/* For Webkit browsers (like Chrome and Safari): */
+.pinComments::-webkit-scrollbar {
+  width: 0;
+}
+
+/* Track */
+.pinComments::-webkit-scrollbar-track {
+  background: rgba(56, 56, 56, .5), rgba(245, 245, 245, .5);
+}
+ 
+
+.pinComments:hover::-webkit-scrollbar {
+  width: 6px;
+}
+.pinComments:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(112, 112, 112, 0.5); /* Change as desired */
+  border-radius: 50px;
+
+}
+
+/* For Firefox: */
+.pinComments {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+.pinComments:hover {
+  scrollbar-color: rgba(112, 112, 112, 0.5) transparent;
+}
+
+/* border-left: 1px solid (#444444, #efefef);
+background: rgba(56, 56, 56, .5), rgba(245, 245, 245, .5); */
+
+
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  margin-right: 20px;
 }
